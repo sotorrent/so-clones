@@ -1,0 +1,1 @@
+"    var testObject = { 'one': 1, 'two': 2, 'three': 3 };&#xD;&#xA;// Put the object into storage&#xD;&#xA;localStorage.setItem('testObject', JSON.stringify(testObject));&#xD;&#xA;// Retrieve the object from storage&#xD;&#xA;var retrievedObject = localStorage.getItem('testObject');&#xD;&#xA;console.log('retrievedObject: ', JSON.parse(retrievedObject));"

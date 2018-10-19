@@ -1,0 +1,1 @@
+"class StaticPagesController < ApplicationController&#xD;&#xA;def home&#xD;&#xA;end&#xD;&#xA;def help&#xD;&#xA;end&#xD;&#xA;def about&#xD;&#xA;end&#xD;&#xA;def contact&#xD;&#xA;end&#xD;&#xA;end"

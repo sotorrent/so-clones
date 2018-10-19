@@ -1,0 +1,1 @@
+"    .video-container {&#xD;&#xA;position: relative;&#xD;&#xA;padding-bottom: 56.25%;&#xD;&#xA;padding-top: 30px; height: 0; overflow: hidden;&#xD;&#xA;}&#xD;&#xA;.video-container iframe,&#xD;&#xA;.video-container object,&#xD;&#xA;.video-container embed {&#xD;&#xA;position: absolute;&#xD;&#xA;top: 0;&#xD;&#xA;left: 0;&#xD;&#xA;width: 100%;&#xD;&#xA;height: 100%;&#xD;&#xA;}"

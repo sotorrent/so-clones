@@ -1,0 +1,1 @@
+"	RewriteEngine On&#xD;&#xA;RewriteRule ^\.htaccess$ - [F]&#xD;&#xA;RewriteCond %{REQUEST_URI} =""""""""&#xD;&#xA;RewriteRule ^.*$ /public/index.php [NC,L]&#xD;&#xA;RewriteCond %{REQUEST_URI} !^/public/.*$&#xD;&#xA;RewriteRule ^(.*)$ /public/$1&#xD;&#xA;RewriteCond %{REQUEST_FILENAME} -f&#xD;&#xA;RewriteRule ^.*$ - [NC,L]&#xD;&#xA;RewriteRule ^public/.*$ /public/index.php [NC,L]"

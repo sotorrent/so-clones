@@ -1,0 +1,1 @@
+"         <?php&#xD;&#xA;$to = """"somebody@example.com"""";&#xD;&#xA;$subject = """"My subject"""";&#xD;&#xA;$txt = """"Hello world!"""";&#xD;&#xA;$headers = """"From: webmaster@example.com"""" . """"\r\n"""" .&#xD;&#xA;""""CC: somebodyelse@example.com"""";&#xD;&#xA;mail($to,$subject,$txt,$headers);&#xD;&#xA;?>"
