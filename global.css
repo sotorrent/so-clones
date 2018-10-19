@@ -1,0 +1,39 @@
+body {
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+div.header {
+    display: block;
+}
+
+div.header > button {
+    width: 100px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+div.header > input {
+    width: 160px;
+}
+
+div.header > input.rank {
+    width: 50px;
+}
+
+div.header > input.interval {
+    width: 50px;
+}
+
+div.divider {
+    display: inline-block;
+    width: 20px;
+}
+
+svg {
+    margin-top: 10px;
+}
+
+td {
+    text-align: right;
+}

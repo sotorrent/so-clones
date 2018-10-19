@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>SOCloneViz</title>
+
+    <link rel="stylesheet" type="text/css" href="global.css"/>
+
+    <script src="lib/d3.js"></script>
+</head>
+<body>
+
+<script>
+    d3.csv("data/index.csv", function (row, index) {
+        return {
+            Rank: index+1,
+            HashValue: row.HashValue,
+            ThreadCount: parseInt(row.ThreadCount),
+            LineCount: parseInt(row.LineCount)
+        }
+    }).then(function(data) {
+        // see also http://bl.ocks.org/jfreels/6734025
+        var columns = ["Rank", "HashValue", "ThreadCount", "LineCount"];
+        var table = d3.select('body').append('table');
+        var thead = table.append('thead');
+        var	tbody = table.append('tbody');
+
+        // add table header
+        thead.append('tr')
+            .selectAll('th')
+            .data(columns)
+            .enter()
+            .append('th')
+            .text(function(column) { return column; });
+
+        // create table rows
+        var rows = tbody.selectAll('tr')
+            .data(data)
+            .enter()
+            .append('tr');
+
+        // create a cell in each row for each column
+        var cells = rows.selectAll('td')
+            .data(function(row) {
+                return columns.map(function(column) {
+                    return {column: column, value: row[column]};
+                });
+            })
+            .enter()
+            .append('td')
+            .text(function(d) { return d.value; });
+    });
+</script>
+
+</body>
+</html>

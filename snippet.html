@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>SOCloneViz</title>
+
+    <link rel="stylesheet" type="text/css" href="global.css"/>
+
+    <script src="lib/d3.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <label for="rank">Rank: </label>
+    <input id="rank" class="rank"/>
+    <button type="button" id="load_rank">Load</button>
+    <div class="divider"></div>
+    <label for="hash">Snippet Hash: </label>
+    <input id="hash"/>
+    <button type="button" id="load_hash">Load</button>
+    <div class="divider"></div>
+    <button type="button" id="previous">< Previous</button>
+    <button type="button" id="next">Next ></button>
+</div>
+
+<script>
+    function errorMessage(errorMessage) {
+        alert(errorMessage);
+        throw new Error(errorMessage);
+    }
+
+    var queryParameters = [];
+    var loadRankButton = d3.select("#load_rank");
+    var loadHashButton = d3.select("#load_hash");
+    var nextButton = d3.select("#next");
+    var previousButton = d3.select("#previous");
+    var rankInput = document.getElementById("rank");
+    var hashInput = document.getElementById("hash");
+
+    // read query parameters
+    window.location.search.substr(1).split("&").forEach(function(keyValueString) {
+        var keyValue = keyValueString.split("=");
+        queryParameters[keyValue[0]] = keyValue[1];
+    });
+
+    if (!Object.keys(queryParameters).includes("hashValue")) {
+        errorMessage("Query parameter hashValue is missing.");
+    }
+
+    var hashValue = queryParameters["hashValue"];
+
+    d3.csv("data/index.csv", function (row, index) {
+        return {
+            Rank: index+1,
+            HashValue: row.HashValue,
+            ThreadCount: parseInt(row.ThreadCount),
+            LineCount: parseInt(row.LineCount)
+        }
+    }).then(function(data) {
+        var row = data.find(function(row) { return row.HashValue === hashValue });
+        rankInput.value = row.Rank;
+        hashInput.value = row.HashValue;
+    });
+
+</script>
+
+</body>
+</html>
