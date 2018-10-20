@@ -1,1 +1,2 @@
-"                @if (count($errors)>0)&#xD;&#xA;<div class=""""alert alert-danger"""">&#xD;&#xA;<ul >&#xD;&#xA;@foreach($errors->all() as $error)&#xD;&#xA;<li> {{ $error }} </li>&#xD;&#xA;@endforeach&#xD;&#xA;</ul>&#xD;&#xA;</div>&#xD;&#xA;@endif"
+"Content"
+"                @if (count($errors)>0)&#xD;&#xA;                <div class=""""alert alert-danger"""">&#xD;&#xA;                    <ul >&#xD;&#xA;                        @foreach($errors->all() as $error)&#xD;&#xA;                            <li> {{ $error }} </li>&#xD;&#xA;                        @endforeach&#xD;&#xA;                    </ul>&#xD;&#xA;                </div>&#xD;&#xA;            @endif"

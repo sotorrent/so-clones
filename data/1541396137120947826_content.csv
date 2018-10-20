@@ -1,1 +1,2 @@
-"<configuration>&#xD;&#xA;<property>&#xD;&#xA;<name>fs.defaultFS</name>&#xD;&#xA;<value>hdfs://localhost:9000</value>&#xD;&#xA;</property>&#xD;&#xA;</configuration>"
+"Content"
+"<configuration>&#xD;&#xA;                  <property>&#xD;&#xA;                      <name>fs.defaultFS</name>&#xD;&#xA;                      <value>hdfs://localhost:9000</value>&#xD;&#xA;                  </property>&#xD;&#xA;          </configuration>"

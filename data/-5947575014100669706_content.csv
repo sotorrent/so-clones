@@ -1,1 +1,2 @@
-"    <configuration>&#xD;&#xA;<appSettings>&#xD;&#xA;<add key=""""ClientValidationEnabled"""" value=""""true"""" />&#xD;&#xA;<add key=""""UnobtrusiveJavaScriptEnabled"""" value=""""true"""" />&#xD;&#xA;</appSettings>&#xD;&#xA;</configuration>"
+"Content"
+"    <configuration>    &#xD;&#xA;      <appSettings>        &#xD;&#xA;        <add key=""""ClientValidationEnabled"""" value=""""true""""/>        &#xD;&#xA;        <add key=""""UnobtrusiveJavaScriptEnabled"""" value=""""true""""/>    &#xD;&#xA;      </appSettings>&#xD;&#xA;    </configuration>"

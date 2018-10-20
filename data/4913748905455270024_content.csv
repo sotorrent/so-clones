@@ -1,1 +1,2 @@
-"        class User < ActiveRecord::Base&#xD;&#xA;# Include default devise modules. Others available are:&#xD;&#xA;# :confirmable, :lockable, :timeoutable and :omniauthable&#xD;&#xA;devise :database_authenticatable, :registerable,&#xD;&#xA;:recoverable, :rememberable, :trackable, :validatable&#xD;&#xA;end"
+"Content"
+"        class User < ActiveRecord::Base&#xD;&#xA;          # Include default devise modules. Others available are:&#xD;&#xA;          # :confirmable, :lockable, :timeoutable and :omniauthable&#xD;&#xA;          devise :database_authenticatable, :registerable,&#xD;&#xA;                 :recoverable, :rememberable, :trackable, :validatable&#xD;&#xA;        end"

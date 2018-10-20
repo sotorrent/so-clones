@@ -1,1 +1,2 @@
-"    function loadXMLDoc(dname) {&#xD;&#xA;if (window.XMLHttpRequest) {&#xD;&#xA;xhttp = new XMLHttpRequest();&#xD;&#xA;} else {&#xD;&#xA;xhttp = new ActiveXObject(""""Microsoft.XMLHTTP"""");&#xD;&#xA;}&#xD;&#xA;xhttp.open(""""GET"""", dname, false);&#xD;&#xA;xhttp.send("""""""");&#xD;&#xA;return xhttp.responseXML;&#xD;&#xA;}"
+"Content"
+"    function loadXMLDoc(dname) &#xD;&#xA;    {&#xD;&#xA;    if (window.XMLHttpRequest)&#xD;&#xA;      {&#xD;&#xA;      xhttp=new XMLHttpRequest();&#xD;&#xA;      }&#xD;&#xA;    else&#xD;&#xA;      {&#xD;&#xA;      xhttp=new ActiveXObject(""""Microsoft.XMLHTTP"""");&#xD;&#xA;      }&#xD;&#xA;    xhttp.open(""""GET"""",dname,false);&#xD;&#xA;    xhttp.send();&#xD;&#xA;    return xhttp.responseXML;&#xD;&#xA;    }"

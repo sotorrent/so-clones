@@ -1,1 +1,2 @@
-"<CORSConfiguration>&#xD;&#xA;<CORSRule>&#xD;&#xA;<AllowedOrigin>*</AllowedOrigin>&#xD;&#xA;<AllowedMethod>GET</AllowedMethod>&#xD;&#xA;</CORSRule>&#xD;&#xA;</CORSConfiguration>"
+"Content"
+"<CORSConfiguration>&#xD;&#xA;           <CORSRule>&#xD;&#xA;             <AllowedOrigin>*</AllowedOrigin>&#xD;&#xA;             <AllowedMethod>GET</AllowedMethod>&#xD;&#xA;           </CORSRule>&#xD;&#xA;         </CORSConfiguration>"

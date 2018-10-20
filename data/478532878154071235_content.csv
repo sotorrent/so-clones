@@ -1,1 +1,2 @@
-"	<?xml version=""""1.0""""?>&#xD;&#xA;<configuration>&#xD;&#xA;<system.web>&#xD;&#xA;<authorization>&#xD;&#xA;<allow users=""""*"""" />&#xD;&#xA;</authorization>&#xD;&#xA;</system.web>&#xD;&#xA;</configuration>"
+"Content"
+"	<?xml version=""""1.0""""?>&#xD;&#xA;	<configuration>&#xD;&#xA;		<system.web>&#xD;&#xA;			<authorization>&#xD;&#xA;				<allow users=""""*"""" />&#xD;&#xA;			</authorization>&#xD;&#xA;		</system.web>&#xD;&#xA;	</configuration>"

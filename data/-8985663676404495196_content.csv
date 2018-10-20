@@ -1,1 +1,2 @@
-"	<xsl:template match=""""*"""">&#xD;&#xA;<xsl:copy>&#xD;&#xA;<xsl:copy-of select=""""@*"""" />&#xD;&#xA;<xsl:apply-templates />&#xD;&#xA;</xsl:copy>&#xD;&#xA;</xsl:template>"
+"Content"
+"	<xsl:template match=""""*"""">&#xD;&#xA;		<xsl:copy>&#xD;&#xA;			<xsl:copy-of select=""""@*"""" />&#xD;&#xA;			<xsl:apply-templates />&#xD;&#xA;		</xsl:copy>&#xD;&#xA;	</xsl:template>"

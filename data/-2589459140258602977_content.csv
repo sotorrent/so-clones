@@ -1,1 +1,2 @@
-"        <supports-screens&#xD;&#xA;android:largeScreens=""""true""""&#xD;&#xA;android:normalScreens=""""false""""&#xD;&#xA;android:requiresSmallestWidthDp=""""600""""&#xD;&#xA;android:smallScreens=""""false""""&#xD;&#xA;android:xlargeScreens=""""true"""" />"
+"Content"
+"        <supports-screens&#xD;&#xA;        android:largeScreens=""""true""""&#xD;&#xA;        android:normalScreens=""""false""""&#xD;&#xA;        android:requiresSmallestWidthDp=""""600""""&#xD;&#xA;        android:smallScreens=""""false""""&#xD;&#xA;        android:xlargeScreens=""""true"""" />"

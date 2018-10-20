@@ -1,1 +1,2 @@
-".angular-google-map-container {&#xD;&#xA;position: absolute;&#xD;&#xA;top: 0;&#xD;&#xA;bottom: 0;&#xD;&#xA;right: 0;&#xD;&#xA;left: 0;&#xD;&#xA;}"
+"Content"
+".angular-google-map-container {&#xD;&#xA;    	position: absolute;&#xD;&#xA;    	top: 0;&#xD;&#xA;    	bottom: 0;&#xD;&#xA;    	right: 0;&#xD;&#xA;    	left: 0;&#xD;&#xA;    }"

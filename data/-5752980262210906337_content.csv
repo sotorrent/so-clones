@@ -1,1 +1,2 @@
-"     class Relationship < ActiveRecord::Base&#xD;&#xA;belongs_to :follower, class_name: """"User""""&#xD;&#xA;belongs_to :followed, class_name: """"User""""&#xD;&#xA;validates  :follower_id, presence: true&#xD;&#xA;validates  :followed_id, presence: true&#xD;&#xA;end"
+"Content"
+"     class Relationship < ActiveRecord::Base&#xD;&#xA;    &#xD;&#xA;        belongs_to :follower, class_name: """"User""""&#xD;&#xA;        belongs_to :followed, class_name: """"User""""&#xD;&#xA;        validates  :follower_id, presence: true&#xD;&#xA;        validates  :followed_id, presence: true&#xD;&#xA;        &#xD;&#xA;     end"

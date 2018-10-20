@@ -1,1 +1,2 @@
-"    group :production do&#xD;&#xA;gem """"pg""""&#xD;&#xA;end&#xD;&#xA;group :development, :test do&#xD;&#xA;gem """"sqlite3""""&#xD;&#xA;end"
+"Content"
+"    group :production do&#xD;&#xA;      gem """"pg""""&#xD;&#xA;    end&#xD;&#xA;    group :development, :test do&#xD;&#xA;      gem """"sqlite3""""&#xD;&#xA;    end"

@@ -1,1 +1,2 @@
-"class Post < ActiveRecord::Base&#xD;&#xA;has_many :comments&#xD;&#xA;## ...&#xD;&#xA;end&#xD;&#xA;class Comment < ActiveRecord::Base&#xD;&#xA;belongs_to :post&#xD;&#xA;## ...&#xD;&#xA;end"
+"Content"
+"class Post < ActiveRecord::Base&#xD;&#xA;        has_many :comments&#xD;&#xA;    end&#xD;&#xA;    class Comment < ActiveRecord::Base&#xD;&#xA;        belongs_to :post&#xD;&#xA;    end"

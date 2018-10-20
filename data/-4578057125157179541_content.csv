@@ -1,1 +1,2 @@
-"    <configuration>&#xD;&#xA;<runtime>&#xD;&#xA;<assemblyBinding xmlns=""""urn:schemas-microsoft-com:asm.v1"""">&#xD;&#xA;<probing privatePath=""""bin;bin2\subbin;bin3""""/>&#xD;&#xA;</assemblyBinding>&#xD;&#xA;</runtime>&#xD;&#xA;</configuration>"
+"Content"
+"    <configuration>  &#xD;&#xA;       <runtime>  &#xD;&#xA;          <assemblyBinding xmlns=""""urn:schemas-microsoft-com:asm.v1"""">  &#xD;&#xA;             <probing privatePath=""""bin;bin2\subbin;bin3""""/>  &#xD;&#xA;          </assemblyBinding>  &#xD;&#xA;       </runtime>  &#xD;&#xA;    </configuration>"
