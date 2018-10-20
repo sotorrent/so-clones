@@ -22,7 +22,9 @@
     }).then(function(data) {
         // see also http://bl.ocks.org/jfreels/6734025
         var columns = ["Rank", "HashValue", "ThreadCount", "LineCount"];
-        var table = d3.select('body').append('table');
+        var table = d3.select('body')
+            .append('table')
+            .attr("cellspacing", 5);
         var thead = table.append('thead');
         var	tbody = table.append('tbody');
 
@@ -49,7 +51,14 @@
             })
             .enter()
             .append('td')
-            .text(function(d) { return d.value; });
+            .html(function(d) {
+                if (d.column === "HashValue") {
+                    return "<a target='_blank' href='snippet-view.html?hashValue='" + d.value + ">" + d.value + "</a>";
+                } else {
+                    return d.value;
+                }
+            });
+
     });
 </script>
 
