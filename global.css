@@ -1,10 +1,12 @@
 body {
     font-size: 14px;
     font-family: sans-serif;
+    min-width: 850px;
 }
 
 div.header {
     display: block;
+    padding-bottom: 15px;
 }
 
 div.header > button {
@@ -17,17 +19,31 @@ div.header > input {
     width: 160px;
 }
 
-div.header > input.rank {
-    width: 50px;
-}
-
-div.header > input.interval {
+div.header > input.small {
     width: 50px;
 }
 
 div.divider {
     display: inline-block;
     width: 20px;
+}
+
+div.markdown {
+    display: inline-block;
+    width: 500px;
+    overflow: scroll;
+    border: 1px solid lightgray;
+    float: left;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+div.post_list {
+    display: inline-block;
+    width: 300px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 svg {

@@ -7,22 +7,25 @@
 
     <link rel="stylesheet" type="text/css" href="global.css"/>
 
-    <script src="lib/d3.js"></script>
+    <script src="lib/d3/d3.min.js"></script>
+    <script src="lib/marked/marked.min.js"></script>
 </head>
 <body>
 
 <div class="header">
-    <label for="rank">Rank: </label>
-    <input id="rank" class="rank"/>
-    <button type="button" id="load_rank">Load</button>
-    <div class="divider"></div>
-    <label for="hash">Snippet Hash: </label>
-    <input id="hash"/>
+    <label for="hash_value">Snippet Hash: </label>
+    <input id="hash_value"/>
     <button type="button" id="load_hash">Load</button>
     <div class="divider"></div>
     <button type="button" id="previous">< Previous</button>
     <button type="button" id="next">Next ></button>
+    <div class="divider"></div>
+    <label for="post_count">#Posts: </label>
+    <input id="post_count" disabled class="small"/>
 </div>
+
+<div id="markdown_content" class="markdown"></div>
+<div id="post_list" class="post_list"></div>
 
 <script>
     function errorMessage(errorMessage) {
@@ -31,12 +34,16 @@
     }
 
     var queryParameters = [];
-    var loadRankButton = d3.select("#load_rank");
+    var snippetMetadata;
+    var posts;
+    var currentIndex;
     var loadHashButton = d3.select("#load_hash");
     var nextButton = d3.select("#next");
     var previousButton = d3.select("#previous");
-    var rankInput = document.getElementById("rank");
-    var hashInput = document.getElementById("hash");
+    var hashInput = document.getElementById("hash_value");
+    var markdownContent = document.getElementById("markdown_content")
+    var postCountInput = document.getElementById("post_count");
+    var postListDiv = d3.select("#post_list");
 
     // read query parameters
     window.location.search.substr(1).split("&").forEach(function(keyValueString) {
@@ -48,20 +55,145 @@
         errorMessage("Query parameter hashValue is missing.");
     }
 
-    var hashValue = queryParameters["hashValue"];
+    // set hash value
+    hashInput.value = queryParameters["hashValue"];
 
+    // register event handlers
+    loadHashButton.on("click", function() {
+        if (loadMetadata()) {
+            updateView();
+        }
+    });
+
+    nextButton.on("click", function() {
+        if (currentIndex < snippetMetadata.length-1) {
+            currentIndex++;
+            hashInput.value = snippetMetadata[currentIndex].HashValue;
+            if (loadMetadata()) {
+                updateView();
+            }
+        }
+    });
+
+    previousButton.on("click", function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            hashInput.value = snippetMetadata[currentIndex].HashValue;
+            if (loadMetadata()) {
+                updateView();
+            }
+        }
+    });
+
+    // read index file
     d3.csv("data/index.csv", function (row, index) {
         return {
-            Rank: index+1,
+            Index: index,
             HashValue: row.HashValue,
             ThreadCount: parseInt(row.ThreadCount),
             LineCount: parseInt(row.LineCount)
         }
     }).then(function(data) {
-        var row = data.find(function(row) { return row.HashValue === hashValue });
-        rankInput.value = row.Rank;
-        hashInput.value = row.HashValue;
+        snippetMetadata = data;
+
+        if (loadMetadata()) {
+            updateView();
+        }
     });
+
+    function getStackOverflowUrl(post) {
+        if (post.PostTypeId === 1) {
+            return "https://stackoverflow.com/q/" + post.PostId;
+        } else if (post.PostTypeId === 2) {
+            return "https://stackoverflow.com/a/" + post.PostId;
+        } else {
+            errorMessage("Invalid PostTypeId " + post.PostTypeId);
+        }
+    }
+
+    function prepareContent(content) {
+        return content
+            .split("&#xD;&#xA;")
+            .map(function(line) {
+                var result = line.replace(new RegExp("\t", "g"), "");
+                while (!result.startsWith("    ")) {
+                    result = " " + result;
+                }
+                return result;
+            })
+            .join("\n");
+    }
+
+    function loadMetadata() {
+        var row = snippetMetadata.find(function(row) { return row.HashValue === hashInput.value.trim() });
+
+        if (row == null) {
+            errorMessage("Hash value not found.");
+            return false;
+        }
+
+        currentIndex = row.Index;
+
+        // update buttons
+        if (currentIndex < snippetMetadata.length-1) {
+            nextButton.attr("disabled", null);
+        } else {
+            nextButton.attr("disabled", "disabled");
+        }
+        if (currentIndex > 0) {
+            previousButton.attr("disabled", null);
+        } else {
+            previousButton.attr("disabled", "disabled");
+        }
+
+        return true;
+    }
+
+    function updateView() {
+        loadSnippet();
+        loadPosts();
+    }
+
+    function loadSnippet() {
+        d3.csv("data/" + hashInput.value.trim() + "_content.csv", function (row) {
+            return {
+                Content: prepareContent(row.Content)
+            }
+        }).then(function(data) {
+            markdownContent.innerHTML = marked(data[0].Content);
+        });
+    }
+
+    function loadPosts() {
+        d3.csv("data/" + hashInput.value.trim() + ".csv", function (row) {
+            return {
+                PostId: parseInt(row.PostId),
+                PostTypeId: parseInt(row.PostTypeId),
+                ParentId: parseInt(row.ParentId)
+            }
+        }).then(function(data) {
+            posts = data;
+            postCountInput.value = posts.length;
+
+            postListDiv
+                .select("*")
+                .remove();
+
+            postListDiv
+                .selectAll("p")
+                .data(posts)
+                .enter()
+                .append("p")
+                .append("a")
+                .attr("href", function(post) {
+                    return getStackOverflowUrl(post);
+                })
+                .text(function(post) {
+                    return getStackOverflowUrl(post);
+                })
+                .attr("target", "_blank");
+        });
+    }
 
 </script>
 
