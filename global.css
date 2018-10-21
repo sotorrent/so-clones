@@ -37,6 +37,12 @@ div.markdown {
 }
 
 td {
+     vertical-align: top;
+     text-align: left;
+}
+
+td.align-right {
+    !important;
     vertical-align: top;
     text-align: right;
 }

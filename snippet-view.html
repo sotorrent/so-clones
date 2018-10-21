@@ -13,7 +13,7 @@
 <body>
 
 <div class="header">
-    <label for="hash-value">Hash: </label>
+    <label for="hash-value">Hash Value: </label>
     <input id="hash-value"/>
     <button type="button" id="load-hash">Load</button>
     <div class="divider"></div>
@@ -247,6 +247,12 @@
                 .data(linkedPosts)
                 .enter()
                 .append("div")
+                .append("span")
+                .text(function(linkedPost) { return  linkedPost.PostCount + " x " });
+
+            linkedPostsDiv
+                .selectAll("div")
+                .data(linkedPosts)
                 .append("a")
                 .attr("href", function(linkedPost) {
                     return getStackOverflowUrl(linkedPost);
@@ -255,12 +261,6 @@
                     return getStackOverflowUrl(linkedPost, true);
                 })
                 .attr("target", "_blank");
-
-            linkedPostsDiv
-                .selectAll("div")
-                .data(linkedPosts)
-                .append("span")
-                .text(function(linkedPost) { return  " (" + linkedPost.PostCount + ")" })
         });
     }
 
@@ -290,6 +290,12 @@
                 .data(otherLinks)
                 .enter()
                 .append("div")
+                .append("span")
+                .text(function(linkedUrl) { return  linkedUrl.PostCount + " x " });
+
+            otherLinksDiv
+                .selectAll("div")
+                .data(otherLinks)
                 .append("a")
                 .attr("href", function(linkedUrl) {
                     return linkedUrl.Url;
@@ -298,12 +304,6 @@
                     return truncateString(linkedUrl.Url);
                 })
                 .attr("target", "_blank");
-
-            otherLinksDiv
-                .selectAll("div")
-                .data(otherLinks)
-                .append("span")
-                .text(function(linkedUrl) { return  " (" + linkedUrl.PostCount + ")" })
         });
     }
 
