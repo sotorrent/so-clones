@@ -1,7 +1,7 @@
 body {
     font-size: 14px;
     font-family: sans-serif;
-    min-width: 1000px;
+    min-width: 1400px;
     padding: 5px;
 }
 
@@ -29,6 +29,15 @@ div.divider {
     width: 20px;
 }
 
+div.header-label {
+    display: inline-block;
+    font-weight: bold;
+}
+
+div.header-label > span {
+    font-weight: normal;
+}
+
 div.markdown {
     text-align: left;
     width: 500px;
@@ -38,11 +47,5 @@ div.markdown {
 
 td {
      vertical-align: top;
-     text-align: left;
-}
-
-td.align-right {
-    !important;
-    vertical-align: top;
-    text-align: right;
+     text-align: right;
 }

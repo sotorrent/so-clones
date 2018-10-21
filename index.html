@@ -51,7 +51,6 @@
             })
             .enter()
             .append('td')
-            .attr("class", "align-right")
             .html(function(d) {
                 if (d.column === "HashValue") {
                     return "<a target='_blank' href='snippet-view.html?hashValue=" + d.value + "'>" + d.value + "</a>";
