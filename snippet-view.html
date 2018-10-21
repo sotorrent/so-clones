@@ -21,13 +21,32 @@
     <button type="button" id="next">Next ></button>
 </div>
 
-<div class="header">
-    <div class="markdown-caption">Snippet:</div>
-    <div id="post-list-caption" class="post-list-caption">Posts:</div>
-</div>
-
-<div id="markdown-content" class="markdown"></div>
-<div id="post-list" class="post-list"></div>
+<table cellspacing="20">
+    <thead>
+        <tr>
+            <th>Snippet</th>
+            <th id="posts-header">Posts</th>
+            <th id="linked-posts-header">Linked Posts</th>
+            <th id="other-links-header">Other Links</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <div id="markdown-content" class="markdown"></div>
+        </td>
+        <td>
+            <div id="posts"></div>
+        </td>
+        <td>
+            <div id="linked-posts"></div>
+        </td>
+        <td>
+            <div id="other-links"></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 <script>
     function errorMessage(errorMessage) {
@@ -39,13 +58,17 @@
     var snippetMetadata;
     var posts;
     var currentIndex;
+    var linkedPosts;
+    var otherLinks;
     var loadHashButton = d3.select("#load-hash");
     var nextButton = d3.select("#next");
     var previousButton = d3.select("#previous");
     var hashInput = document.getElementById("hash-value");
-    var markdownContent = document.getElementById("markdown-content")
-    var postListDiv = d3.select("#post-list");
-    var postListCaption = document.getElementById("post-list-caption");
+    var markdownContent = document.getElementById("markdown-content");
+    var postsDiv = d3.select("#posts");
+    var postsHeader = document.getElementById("posts-header");
+    var linkedPostsDiv = d3.select("#linked-posts");
+    var otherLinksDiv = d3.select("#other-links");
 
     // read query parameters
     window.location.search.substr(1).split("&").forEach(function(keyValueString) {
@@ -160,6 +183,8 @@
     function updateView() {
         loadSnippet();
         loadPosts();
+        loadSOLinks();
+        loadOtherLinks();
     }
 
     function loadSnippet() {
@@ -181,13 +206,13 @@
             }
         }).then(function(data) {
             posts = data;
-            postListCaption.innerText = "Posts (" + posts.length + "):";
+            postsHeader.innerText = "Posts (" + posts.length + ")";
 
-            postListDiv
+            postsDiv
                 .select("*")
                 .remove();
 
-            postListDiv
+            postsDiv
                 .selectAll("div")
                 .data(posts)
                 .enter()
@@ -200,6 +225,85 @@
                     return getStackOverflowUrl(post, true);
                 })
                 .attr("target", "_blank");
+        });
+    }
+
+    function loadSOLinks() {
+        d3.csv("data/" + hashInput.value.trim() + "_so-links.csv", function (row) {
+            return {
+                PostId: parseInt(row.LinkedPostId),
+                PostTypeId: parseInt(row.LinkedPostTypeId),
+                PostCount: parseInt(row.PostCount)
+            }
+        }).then(function(data) {
+            linkedPosts = data;
+
+            linkedPostsDiv
+                .selectAll("div")
+                .remove();
+
+            linkedPostsDiv
+                .selectAll("div")
+                .data(linkedPosts)
+                .enter()
+                .append("div")
+                .append("a")
+                .attr("href", function(linkedPost) {
+                    return getStackOverflowUrl(linkedPost);
+                })
+                .text(function(linkedPost) {
+                    return getStackOverflowUrl(linkedPost, true);
+                })
+                .attr("target", "_blank");
+
+            linkedPostsDiv
+                .selectAll("div")
+                .data(linkedPosts)
+                .append("span")
+                .text(function(linkedPost) { return  " (" + linkedPost.PostCount + ")" })
+        });
+    }
+
+    function truncateString(string) {
+        if (string.length > 40) {
+            return string.substring(0, 38) + "...";
+        } else {
+            return string;
+        }
+    }
+
+    function loadOtherLinks() {
+        d3.csv("data/" + hashInput.value.trim() + "_links.csv", function (row) {
+            return {
+                Url: row.Url,
+                PostCount: parseInt(row.PostCount)
+            }
+        }).then(function(data) {
+            otherLinks = data;
+
+            otherLinksDiv
+                .selectAll("div")
+                .remove();
+
+            otherLinksDiv
+                .selectAll("div")
+                .data(otherLinks)
+                .enter()
+                .append("div")
+                .append("a")
+                .attr("href", function(linkedUrl) {
+                    return linkedUrl.Url;
+                })
+                .text(function(linkedUrl) {
+                    return truncateString(linkedUrl.Url);
+                })
+                .attr("target", "_blank");
+
+            otherLinksDiv
+                .selectAll("div")
+                .data(otherLinks)
+                .append("span")
+                .text(function(linkedUrl) { return  " (" + linkedUrl.PostCount + ")" })
         });
     }
 
