@@ -2,6 +2,7 @@ body {
     font-size: 14px;
     font-family: sans-serif;
     min-width: 850px;
+    padding: 5px;
 }
 
 div.header {
@@ -23,6 +24,18 @@ div.header > input.small {
     width: 50px;
 }
 
+div.header > div.markdown-caption  {
+    display: inline-block;
+    width: 500px;
+    margin-right: 20px;
+}
+
+div.header > div.post-list-caption  {
+    display: inline-block;
+    width: 300px;
+    margin-left: 20px;
+}
+
 div.divider {
     display: inline-block;
     width: 20px;
@@ -34,16 +47,14 @@ div.markdown {
     overflow: scroll;
     border: 1px solid lightgray;
     float: left;
-    margin-left: 5px;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
-div.post_list {
+div.post-list {
     display: inline-block;
     width: 300px;
     float: left;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin-left: 20px;
 }
 
 svg {

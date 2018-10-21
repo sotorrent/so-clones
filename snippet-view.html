@@ -13,19 +13,21 @@
 <body>
 
 <div class="header">
-    <label for="hash_value">Snippet Hash: </label>
-    <input id="hash_value"/>
-    <button type="button" id="load_hash">Load</button>
+    <label for="hash-value">Hash: </label>
+    <input id="hash-value"/>
+    <button type="button" id="load-hash">Load</button>
     <div class="divider"></div>
     <button type="button" id="previous">< Previous</button>
     <button type="button" id="next">Next ></button>
-    <div class="divider"></div>
-    <label for="post_count">#Posts: </label>
-    <input id="post_count" disabled class="small"/>
 </div>
 
-<div id="markdown_content" class="markdown"></div>
-<div id="post_list" class="post_list"></div>
+<div class="header">
+    <div class="markdown-caption">Snippet:</div>
+    <div id="post-list-caption" class="post-list-caption">Posts:</div>
+</div>
+
+<div id="markdown-content" class="markdown"></div>
+<div id="post-list" class="post-list"></div>
 
 <script>
     function errorMessage(errorMessage) {
@@ -37,13 +39,13 @@
     var snippetMetadata;
     var posts;
     var currentIndex;
-    var loadHashButton = d3.select("#load_hash");
+    var loadHashButton = d3.select("#load-hash");
     var nextButton = d3.select("#next");
     var previousButton = d3.select("#previous");
-    var hashInput = document.getElementById("hash_value");
-    var markdownContent = document.getElementById("markdown_content")
-    var postCountInput = document.getElementById("post_count");
-    var postListDiv = d3.select("#post_list");
+    var hashInput = document.getElementById("hash-value");
+    var markdownContent = document.getElementById("markdown-content")
+    var postListDiv = d3.select("#post-list");
+    var postListCaption = document.getElementById("post-list-caption");
 
     // read query parameters
     window.location.search.substr(1).split("&").forEach(function(keyValueString) {
@@ -101,13 +103,19 @@
         }
     });
 
-    function getStackOverflowUrl(post) {
+    function getStackOverflowUrl(post, onlySuffix) {
+        var suffix;
         if (post.PostTypeId === 1) {
-            return "https://stackoverflow.com/q/" + post.PostId;
+            suffix = "q/" + post.PostId;
         } else if (post.PostTypeId === 2) {
-            return "https://stackoverflow.com/a/" + post.PostId;
+            suffix = "a/" + post.PostId;
         } else {
             errorMessage("Invalid PostTypeId " + post.PostTypeId);
+        }
+        if (onlySuffix) {
+            return suffix;
+        } else {
+            return "https://stackoverflow.com/" + suffix;
         }
     }
 
@@ -173,23 +181,23 @@
             }
         }).then(function(data) {
             posts = data;
-            postCountInput.value = posts.length;
+            postListCaption.innerText = "Posts (" + posts.length + "):";
 
             postListDiv
                 .select("*")
                 .remove();
 
             postListDiv
-                .selectAll("p")
+                .selectAll("div")
                 .data(posts)
                 .enter()
-                .append("p")
+                .append("div")
                 .append("a")
                 .attr("href", function(post) {
                     return getStackOverflowUrl(post);
                 })
                 .text(function(post) {
-                    return getStackOverflowUrl(post);
+                    return getStackOverflowUrl(post, true);
                 })
                 .attr("target", "_blank");
         });
