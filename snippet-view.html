@@ -148,7 +148,7 @@
 
     function prepareContent(content) {
         return content
-            .split("&#xD;&#xA;")
+            .split("&#xD;&#xA;") // replace escaped new line characters
             .map(function(line) {
                 var result = line.replace(new RegExp("\t", "g"), "");
                 while (!result.startsWith("    ")) {
@@ -156,7 +156,9 @@
                 }
                 return result;
             })
-            .join("\n");
+            .join("\n")
+            .split("\"\"") // replace escaped double quotes
+            .join("\"");
     }
 
     function loadMetadata() {
