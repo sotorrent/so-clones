@@ -346,10 +346,12 @@
     window.addEventListener('popstate', function (event) {
         if (event.state !== null) {
             updateHashValueFromQueryParameter();
-            loadSnippet();
-            loadPosts();
-            loadSOLinks();
-            loadOtherLinks();
+            if (loadMetadata()) {
+                loadSnippet();
+                loadPosts();
+                loadSOLinks();
+                loadOtherLinks();
+            }
         }
     });
 
