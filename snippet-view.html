@@ -73,18 +73,22 @@
     var otherLinksDiv = d3.select("#other-links");
     var postCountDiv = d3.select("#post-count-div");
 
-    // read query parameters
-    window.location.search.substr(1).split("&").forEach(function(keyValueString) {
-        var keyValue = keyValueString.split("=");
-        queryParameters[keyValue[0]] = keyValue[1];
-    });
+    function updateHashValueFromQueryParameter() {
+        // read query parameters
+        window.location.search.substr(1).split("&").forEach(function(keyValueString) {
+            var keyValue = keyValueString.split("=");
+            queryParameters[keyValue[0]] = keyValue[1];
+        });
 
-    if (!Object.keys(queryParameters).includes("hashValue")) {
-        errorMessage("Query parameter hashValue is missing.");
+        if (!Object.keys(queryParameters).includes("hashValue")) {
+            errorMessage("Query parameter hashValue is missing.");
+        }
+
+        // set hash value
+        hashInput.value = queryParameters["hashValue"];
     }
 
-    // set hash value
-    hashInput.value = queryParameters["hashValue"];
+    updateHashValueFromQueryParameter();
 
     // register event handlers
     loadHashButton.on("click", function() {
@@ -185,7 +189,12 @@
         return true;
     }
 
+    function updateURL() {
+        window.history.pushState({}, "SO Clones", "snippet-view.html?hashValue=" + hashInput.value.trim());
+    }
+
     function updateView() {
+        updateURL();
         loadSnippet();
         loadPosts();
         loadSOLinks();
@@ -332,6 +341,17 @@
                 .text(function(linkedUrl) { return " (" + linkedUrl.PostCount + ")" });
         });
     }
+
+    // react when user uses back button of browser
+    window.addEventListener('popstate', function (event) {
+        if (event.state !== null) {
+            updateHashValueFromQueryParameter();
+            loadSnippet();
+            loadPosts();
+            loadSOLinks();
+            loadOtherLinks();
+        }
+    });
 
 </script>
 
