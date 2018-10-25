@@ -211,8 +211,16 @@
         });
     }
 
-    function extractDateString(date) {
-        return date.toISOString().split(".000Z")[0].split("T")[0];
+    function extractDateString(dateString) {
+        var ISOString;
+        try {
+            // "yyyy-MM-dd" is not supported in iOS (https://stackoverflow.com/a/4310986/1974143)
+            ISOString = new Date(dateString.replace(new RegExp("-", "g"), "/")).toISOString();
+            return ISOString.split(".000Z")[0].split("T")[0];
+        }
+        catch(err) {
+            return "";
+        }
     }
 
     function loadPosts() {
@@ -221,7 +229,7 @@
                 PostId: parseInt(row.PostId),
                 PostTypeId: parseInt(row.PostTypeId),
                 ParentId: parseInt(row.ParentId),
-                CreationDate: extractDateString(new Date(row.CreationDate))
+                CreationDate: extractDateString(row.CreationDate)
             }
         }).then(function(data) {
             posts = data;
