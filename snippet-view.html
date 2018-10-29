@@ -211,14 +211,28 @@
         });
     }
 
-    function extractDateString(dateString) {
+    function getISOString(dateString) {
         var ISOString;
         try {
-            // "yyyy-MM-dd" is not supported in iOS (https://stackoverflow.com/a/4310986/1974143)
-            ISOString = new Date(dateString.replace(new RegExp("-", "g"), "/")).toISOString();
-            return ISOString.split(".000Z")[0].split("T")[0];
+            ISOString = new Date(dateString).toISOString();
+
         }
         catch(err) {
+            try {
+                // "yyyy-MM-dd" is not supported in iOS (https://stackoverflow.com/a/4310986/1974143)
+                ISOString = new Date(dateString.replace(new RegExp("-", "g"), "/"));
+            }
+            catch(err) { }
+        }
+
+        return ISOString;
+    }
+
+    function extractDateString(dateString) {
+        var ISOString = getISOString(dateString);
+        if (ISOString) {
+            return ISOString.split(".000Z")[0].split("T")[0];
+        } else {
             return "";
         }
     }
