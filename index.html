@@ -14,7 +14,7 @@
 <script>
     d3.csv("data/index.csv", function (row, index) {
         return {
-            Rank: index+1,
+            Row: index+1,
             HashValue: row.HashValue,
             Language: row.Language,
             ThreadCount: parseInt(row.ThreadCount),
@@ -22,7 +22,7 @@
         }
     }).then(function(data) {
         // see also http://bl.ocks.org/jfreels/6734025
-        var columns = ["Rank", "HashValue", "Language", "ThreadCount", "LineCount"];
+        var columns = ["Row", "HashValue", "Language", "ThreadCount", "LineCount"];
         var column_alignment = ["align-right", "align-right", "align-right", "align-right", "align-right"];
 
         var table = d3.select('body')
