@@ -20,7 +20,9 @@
     <button type="button" id="previous">< Previous</button>
     <button type="button" id="next">Next ></button>
     <div class="divider"></div>
-    <div id="post-count-div" class="header-label">Number of Posts: </div>
+    <div class="header-label">Language: <span id="language"></span></div>
+    <div class="divider"></div>
+    <div class="header-label">Number of Posts: <span id="post-count"></span></div>
 </div>
 
 <table cellspacing="20">
@@ -28,9 +30,9 @@
         <tr>
             <th>Snippet</th>
             <th class="align-left">PostWithClone</th>
-            <th>CreationDate</th>
-            <th>Owner</th>
-            <th>Score</th>
+            <th class="align-left">CreationDate</th>
+            <th class="align-right">Owner</th>
+            <th class="align-right">Score</th>
             <th class="padding-left align-left">LinkedPost</th>
             <th>#Posts</th>
             <th class="padding-left align-left">ExternalLink</th>
@@ -46,7 +48,7 @@
         <td class="align-left">
             <div id="posts"></div>
         </td>
-        <td class="align-right">
+        <td class="align-left">
             <div id="creation-date"></div>
         </td>
         <td class="align-right">
@@ -96,7 +98,8 @@
     var linkedPostsCountDiv = d3.select("#linked-posts-count");
     var otherLinksDiv = d3.select("#other-links");
     var otherLinksCountDiv = d3.select("#other-links-count");
-    var postCountDiv = d3.select("#post-count-div");
+    var languageSpan = document.getElementById("language");
+    var postCountSpan = document.getElementById("post-count");
 
     function updateHashValueFromQueryParameter() {
         // read query parameters
@@ -126,6 +129,7 @@
         if (currentIndex < snippetMetadata.length-1) {
             currentIndex++;
             hashInput.value = snippetMetadata[currentIndex].HashValue;
+            languageSpan.innerText = snippetMetadata[currentIndex].Language;
             if (loadMetadata()) {
                 updateView();
             }
@@ -136,6 +140,7 @@
         if (currentIndex > 0) {
             currentIndex--;
             hashInput.value = snippetMetadata[currentIndex].HashValue;
+            languageSpan.innerText = snippetMetadata[currentIndex].Language;
             if (loadMetadata()) {
                 updateView();
             }
@@ -213,11 +218,16 @@
         return true;
     }
 
+    function updateLanguage() {
+        languageSpan.innerText = snippetMetadata[currentIndex].Language
+    }
+
     function updateURL() {
-        window.history.pushState({}, "SO Clones", "snippet-view.html?hashValue=" + hashInput.value.trim());
+        window.history.pushState({}, "SO Clones", "snippet-view.html?hashValue=" + snippetMetadata[currentIndex].HashValue);
     }
 
     function updateView() {
+        updateLanguage();
         updateURL();
         loadSnippet();
         loadPosts();
@@ -272,12 +282,7 @@
         }).then(function(data) {
             posts = data;
 
-            postCountDiv
-                .selectAll("span")
-                .remove();
-            postCountDiv
-                .append("span")
-                .text(posts.length);
+            postCountSpan.innerText = posts.length;
 
             postsDiv
                 .selectAll("div")
