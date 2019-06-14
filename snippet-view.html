@@ -20,9 +20,11 @@
     <button type="button" id="previous">< Previous</button>
     <button type="button" id="next">Next ></button>
     <div class="divider"></div>
-    <div class="header-label">Language: <span id="language"></span></div>
+    <div class="header-label">Sample: <span id="sample"></span></div>
     <div class="divider"></div>
     <div class="header-label">Number of Posts: <span id="post-count"></span></div>
+    <div class="divider"></div>
+    <div class="header-label">Number of Threads: <span id="thread-count"></span></div>
 </div>
 
 <table cellspacing="20">
@@ -98,8 +100,9 @@
     var linkedPostsCountDiv = d3.select("#linked-posts-count");
     var otherLinksDiv = d3.select("#other-links");
     var otherLinksCountDiv = d3.select("#other-links-count");
-    var languageSpan = document.getElementById("language");
+    var sampleSpan = document.getElementById("sample");
     var postCountSpan = document.getElementById("post-count");
+    var threadCountSpan = document.getElementById("thread-count");
 
     function updateHashValueFromQueryParameter() {
         // read query parameters
@@ -129,7 +132,7 @@
         if (currentIndex < snippetMetadata.length-1) {
             currentIndex++;
             hashInput.value = snippetMetadata[currentIndex].HashValue;
-            languageSpan.innerText = snippetMetadata[currentIndex].Language;
+            sampleSpan.innerText = snippetMetadata[currentIndex].Sample;
             if (loadMetadata()) {
                 updateView();
             }
@@ -140,7 +143,7 @@
         if (currentIndex > 0) {
             currentIndex--;
             hashInput.value = snippetMetadata[currentIndex].HashValue;
-            languageSpan.innerText = snippetMetadata[currentIndex].Language;
+            sampleSpan.innerText = snippetMetadata[currentIndex].Sample;
             if (loadMetadata()) {
                 updateView();
             }
@@ -152,7 +155,7 @@
         return {
             Index: index,
             HashValue: row.HashValue,
-            Language: row.Language,
+            Sample: row.Sample,
             ThreadCount: parseInt(row.ThreadCount),
             LineCount: parseInt(row.LineCount)
         }
@@ -218,8 +221,8 @@
         return true;
     }
 
-    function updateLanguage() {
-        languageSpan.innerText = snippetMetadata[currentIndex].Language
+    function updateSample() {
+        sampleSpan.innerText = snippetMetadata[currentIndex].Sample
     }
 
     function updateURL() {
@@ -227,7 +230,7 @@
     }
 
     function updateView() {
-        updateLanguage();
+        updateSample();
         updateURL();
         loadSnippet();
         loadPosts();
@@ -270,6 +273,12 @@
         }
     }
 
+    // https://stackoverflow.com/a/14438954
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+
+
     function loadPosts() {
         d3.csv("data/" + hashInput.value.trim() + ".csv", function (row) {
             return {
@@ -282,7 +291,12 @@
         }).then(function(data) {
             posts = data;
 
-            postCountSpan.innerText = posts.length;
+            postCountSpan.innerText = String(posts.length);
+
+            var parents = posts.map(function(post) {
+                return post.ParentId
+            }).filter(onlyUnique);
+            threadCountSpan.innerText = String(parents.length);
 
             postsDiv
                 .selectAll("div")

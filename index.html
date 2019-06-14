@@ -16,14 +16,15 @@
         return {
             Row: index+1,
             HashValue: row.HashValue,
-            Language: row.Language,
+            Sample: row.Sample,
+            PostCount: parseInt(row.PostCount),
             ThreadCount: parseInt(row.ThreadCount),
             LineCount: parseInt(row.LineCount)
         }
     }).then(function(data) {
         // see also http://bl.ocks.org/jfreels/6734025
-        var columns = ["Row", "HashValue", "Language", "ThreadCount", "LineCount"];
-        var column_alignment = ["align-right", "align-right", "align-right", "align-right", "align-right"];
+        var columns = ["Row", "HashValue", "Sample", "PostCount", "ThreadCount", "LineCount"];
+        var column_alignment = ["align-right", "align-right", "align-right", "align-right", "align-right", "align-right"];
 
         var table = d3.select('body')
             .append('table')
