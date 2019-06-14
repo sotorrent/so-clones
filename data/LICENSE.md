@@ -1,6 +1,6 @@
 # License
 
-The data in this directory (and sub-directories) was retrieved from the official Stack Exchange data dump released 2018-09-05. The data is licensed under *Creative Commons Attribution-ShareAlike 3.0 Unported* ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/legalcode)). The legal code can be found below ([source](https://github.com/creativecommons/legalcode/blob/master/by-sa_3.0.txt)).
+The data in this directory (and sub-directories) was retrieved from the official Stack Exchange data dump released 2018_09_23. The data is licensed under *Creative Commons Attribution-ShareAlike 3.0 Unported* ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/legalcode)). The legal code can be found below ([source](https://github.com/creativecommons/legalcode/blob/master/by-sa_3.0.txt)).
 
 ## Legal codes
 
